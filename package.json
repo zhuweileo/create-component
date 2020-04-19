@@ -2,6 +2,7 @@
 	"name": "create-component",
 	"displayName": "create-component",
 	"description": "",
+	"publisher": "leo",
 	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.43.0"
@@ -10,16 +11,25 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:extension.helloWorld"
+		"onCommand:extension.showFileDir"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "extension.helloWorld",
-				"title": "Hello World"
+				"command": "extension.showFileDir",
+				"title": "new component"
 			}
-		]
+		],
+		"menus": {
+			"explorer/context": [
+				{
+					"when": "explorerResourceIsFolder",
+					"command": "extension.showFileDir",
+					"group": "navigation"
+				}
+			]
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "yarn run compile",
@@ -41,5 +51,8 @@
 		"mocha": "^7.0.1",
 		"typescript": "^3.7.5",
 		"vscode-test": "^1.3.0"
+	},
+	"dependencies": {
+		"ejs": "^3.0.2"
 	}
 }
