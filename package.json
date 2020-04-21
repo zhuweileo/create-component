@@ -11,21 +11,34 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:extension.showFileDir"
+		"onCommand:extension.createComponent"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
+		"configuration":{
+			"title": "Create Componet",
+			"properties": {
+				"createComponent.useTpl":{
+					"type": "array",
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "scope": "resource"
+				}
+			}
+		},
 		"commands": [
 			{
-				"command": "extension.showFileDir",
-				"title": "new component"
+				"command": "extension.createComponent",
+				"title": "New component"
 			}
 		],
 		"menus": {
 			"explorer/context": [
 				{
 					"when": "explorerResourceIsFolder",
-					"command": "extension.showFileDir",
+					"command": "extension.createComponent",
 					"group": "navigation"
 				}
 			]

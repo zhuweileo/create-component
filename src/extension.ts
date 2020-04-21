@@ -12,7 +12,7 @@ const { window, workspace, Uri } = vscode;
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
 
-	let disposable = vscode.commands.registerCommand('extension.showFileDir', async (uri) => {
+	let disposable = vscode.commands.registerCommand('extension.createComponent', async (uri) => {
 		
 		const watcher = fs.watch(uri.fsPath,function (e: any, name:any) {
 			
