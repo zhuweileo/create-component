@@ -22,7 +22,7 @@
 					"type": "array",
           "default": [],
           "items": {
-            "type": "string"
+            "type": "object"
           },
           "scope": "resource"
 				}
