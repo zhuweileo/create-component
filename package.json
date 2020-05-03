@@ -11,6 +11,7 @@
 		"Other"
 	],
 	"activationEvents": [
+		"onCommand:extension.createDefaultComponent",
 		"onCommand:extension.createComponent"
 	],
 	"main": "./out/extension.js",
@@ -18,7 +19,7 @@
 		"configuration":{
 			"title": "Create Componet",
 			"properties": {
-				"createComponent.useTpl":{
+				"createComponent.userTpl":{
 					"type": "array",
           "default": [],
           "items": {
@@ -30,12 +31,21 @@
 		},
 		"commands": [
 			{
+				"command": "extension.createDefaultComponent",
+				"title": "New Default component"
+			},
+			{
 				"command": "extension.createComponent",
 				"title": "New component"
 			}
 		],
 		"menus": {
 			"explorer/context": [
+				{
+					"when": "explorerResourceIsFolder",
+					"command": "extension.createDefaultComponent",
+					"group": "navigation"
+				},
 				{
 					"when": "explorerResourceIsFolder",
 					"command": "extension.createComponent",
