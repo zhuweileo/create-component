@@ -2,8 +2,9 @@
 	"name": "create-component",
 	"displayName": "create-component",
 	"description": "",
-	"publisher": "leo",
+	"publisher": "zhuweileo",
 	"version": "0.0.1",
+	"icon": "images/icon.png",
 	"engines": {
 		"vscode": "^1.43.0"
 	},

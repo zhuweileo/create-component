@@ -22,7 +22,7 @@ function createFiles(fileMap: string[], componentName: string, dir: string) {
 				const result = template({ name: componentName, date: new Date() });
 				fs.writeFileSync(path.resolve(dir, fileName), result);
 			} else {
-				vscode.window.showErrorMessage(`读取${filePath}失败，${err.toString()}`);
+				window.showErrorMessage(`读取${filePath}失败，${err.toString()}`);
 				throw err;
 			}
 		});
@@ -35,6 +35,10 @@ export function activate(context: vscode.ExtensionContext) {
 	const userTplList: tplItem[] = vscode.workspace.getConfiguration().get('createComponent.userTpl') as tplItem[];
 
 	let disposable = vscode.commands.registerCommand('extension.createComponent', async (uri) => {
+		if (!userTplList.length) {
+			window.showErrorMessage('模板列表为空，请先配置模板文件');
+			return;
+		}
 		const watcher = fs.watch(uri.fsPath, async function(e: any, name: any) {
 			watcher.close();
 
@@ -49,7 +53,11 @@ export function activate(context: vscode.ExtensionContext) {
 	});
 
 	// 创建默认组件
-	let disposable2 = vscode.commands.registerCommand('extension.createDefaultComponent', async (uri) => {
+	let disposable1 = vscode.commands.registerCommand('extension.createDefaultComponent', async (uri) => {
+		if (!userTplList.length) {
+			window.showErrorMessage('模板列表为空，请先配置模板文件');
+			return;
+		}
 		const watcher = fs.watch(uri.fsPath, async function(e: any, name: any) {
 			watcher.close();
 
@@ -74,7 +82,7 @@ export function activate(context: vscode.ExtensionContext) {
 	});
 
 	context.subscriptions.push(disposable);
-	context.subscriptions.push(disposable2);
+	context.subscriptions.push(disposable1);
 }
 
 // this method is called when your extension is deactivated
