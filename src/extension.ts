@@ -34,6 +34,7 @@ function createFiles(fileMap: string[], componentName: string, dir: string) {
 export function activate(context: vscode.ExtensionContext) {
 	const userTplList: tplItem[] = vscode.workspace.getConfiguration().get('createComponent.userTpl') as tplItem[];
 
+	window.showErrorMessage('版本0.0.2');
 	let disposable = vscode.commands.registerCommand('extension.createComponent', async (uri) => {
 		if (!userTplList.length) {
 			window.showErrorMessage('模板列表为空，请先配置模板文件');
