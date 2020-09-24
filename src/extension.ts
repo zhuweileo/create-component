@@ -4,6 +4,7 @@ import * as vscode from 'vscode';
 const fs = require('fs');
 const path = require('path');
 const ejs = require('ejs');
+const fse = require('fs-extra');
 
 const { window, workspace, Uri } = vscode;
 
@@ -29,6 +30,14 @@ function createFiles(fileMap: string[], componentName: string, dir: string) {
 	});
 }
 
+function copy(filePath: string[], dir: string) {
+	filePath.forEach(p => {
+		fse.copy(path.resolve(p), path.resolve(dir),function (err: any) {
+			if(err) {throw err;}
+		});
+	});
+}
+
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
@@ -46,7 +55,8 @@ export function activate(context: vscode.ExtensionContext) {
 			let fileMap: string[] = [];
 			const tplName = await vscode.window.showQuickPick(userTplList.map((item) => item.name));
 			fileMap = userTplList.filter((item) => item.name === tplName)[0].paths;
-			createFiles(fileMap, name, dir);
+			// createFiles(fileMap, name, dir);
+			copy(fileMap, dir);
 		});
 
 		vscode.commands.executeCommand('explorer.newFolder');
