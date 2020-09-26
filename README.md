@@ -23,6 +23,7 @@
             "name": "React模板",
             "default": true,
             "paths": [
+                "F:\\文件夹名称",
                 "F:\\文件夹名称\\index.tsx",
                 "F:\\文件夹名称\\index.scss"
             ]
@@ -42,7 +43,7 @@
 interface tplItem {
 	name: string; // 模板名称，模板的唯一标识
 	default?: boolean; // 是否设置为默认模板，如果为true，执行New Default Component命令时会直接使用该模板
-	paths: string[]; // 组件包含的所有文件的绝对路径
+	paths: string[]; // 组件包含的所有文件的绝对路径, 可以是文件/文件夹路径; 文件夹时，直接拷贝，没有使用ejs编译
 }
 ```
 

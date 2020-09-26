@@ -17,7 +17,7 @@ interface tplItem {
 function createFiles(fileMap: string[], componentName: string, dir: string) {
 	fileMap.forEach((filePath) => {
 		const fileName = path.basename(filePath);
-		fs.readFile(path.resolve(filePath), function(err: any, data: Buffer) {
+		fs.readFile(filePath, function(err: any, data: Buffer) {
 			if (!err) {
 				const template = ejs.compile(data.toString('utf8'));
 				const result = template({ name: componentName, date: new Date() });
@@ -32,10 +32,21 @@ function createFiles(fileMap: string[], componentName: string, dir: string) {
 
 function copy(filePath: string[], dir: string) {
 	filePath.forEach(p => {
-		fse.copy(path.resolve(p), path.resolve(dir),function (err: any) {
-			if(err) {throw err;}
+		fse.copy(p, dir,function (err: any) {
+			if(err) {
+				window.showErrorMessage(`复制${p}失败，${err.toString()}`);
+				throw err;
+			}
 		});
 	});
+}
+
+
+function handleFiles(filePaths: string [], componentName: string, dir: string) {
+	const files = filePaths.filter(item => fs.statSync(item).isFile());
+	const directorys = filePaths.filter(item => fs.statSync(item).isDirectory());
+	createFiles(files, componentName, dir);
+	copy(directorys, dir);
 }
 
 // this method is called when your extension is activated
@@ -55,8 +66,9 @@ export function activate(context: vscode.ExtensionContext) {
 			let fileMap: string[] = [];
 			const tplName = await vscode.window.showQuickPick(userTplList.map((item) => item.name));
 			fileMap = userTplList.filter((item) => item.name === tplName)[0].paths;
-			// createFiles(fileMap, name, dir);
-			copy(fileMap, dir);
+
+			const paths = fileMap.map(item => path.resolve(item));
+			handleFiles(paths, name, dir);
 		});
 
 		vscode.commands.executeCommand('explorer.newFolder');
@@ -85,7 +97,8 @@ export function activate(context: vscode.ExtensionContext) {
 				fileMap = userTplList.filter((item) => item.name === tplName)[0].paths;
 			}
 
-			createFiles(fileMap, name, dir);
+			const paths = fileMap.map(item => path.resolve());
+			handleFiles(paths, name, dir);
 		});
 
 		vscode.commands.executeCommand('explorer.newFolder');

@@ -6,4 +6,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
-- Initial release
+## [0.0.1] 2020-05-05
+beta
+## [0.0.2] 2020-05-05
+## [0.0.3] 2020-05-05
+## [0.0.4] 2020-09-26
+### Added
+- support copy directory
