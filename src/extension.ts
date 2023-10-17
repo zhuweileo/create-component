@@ -97,7 +97,7 @@ export function activate(context: vscode.ExtensionContext) {
 				fileMap = userTplList.filter((item) => item.name === tplName)[0].paths;
 			}
 
-			const paths = fileMap.map(item => path.resolve());
+			const paths = fileMap.map(item => path.resolve(item));
 			handleFiles(paths, name, dir);
 		});
 
