@@ -52,6 +52,12 @@ interface tplItem {
 
 2. 在文件夹内点击鼠标右键时，菜单内会包含 `New Component` 和 `New Default Component` 项，这两个选项类似于新建文件夹命令，不同之处在于，会在文件夹内生成用户选择的模板文件。
 
+新建组件演示：
+![新建组件](./images/com.gif)
+
+新建默认组件演示：
+![新建组件](./images/defaultcom.gif)
+
 3. 模板文件支持 ejs 模板语法
 ejs 文档参考 https://ejs.bootcss.com/
 目前支持2个预定义变量
